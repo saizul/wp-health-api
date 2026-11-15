@@ -28,7 +28,7 @@ final class SettingsPageRenderTest extends WpTestCase {
 
 		$this->assertStringContainsString( '<h1>Health API</h1>', $html );
 		$this->assertStringContainsString( 'https://shop.example.com/wp-json/health/v1/metrics', $html );
-		$this->assertStringContainsString( 'Authorization: Bearer YOUR_TOKEN', $html );
+		$this->assertStringContainsString( 'Authorization: Bearer $HEALTH_TOKEN', $html );
 		$this->assertStringContainsString( 'name="wp_health_api_settings[thresholds][database.latency_ms][warn]" value="250"', $html );
 		$this->assertStringContainsString( 'name="wp_health_api_settings[thresholds][woocommerce.orders_last_hour][warn]" value=""', $html );
 		$this->assertStringContainsString( 'name="wp_health_api_settings[checks][ssl]" value="0"', $html, 'Hidden fallback for unchecked boxes' );

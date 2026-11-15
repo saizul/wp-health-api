@@ -1,0 +1,55 @@
+{
+    "name": "saizul/wp-health-api",
+    "description": "Health and Prometheus metrics endpoints for WordPress: database, object cache, WP-Cron, Action Scheduler, disk, PHP, updates, TLS expiry and more, with thresholds, caching and token auth.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "keywords": ["wordpress", "health-check", "monitoring", "prometheus", "uptime", "metrics", "wp-cli", "observability"],
+    "homepage": "https://github.com/saizul/wp-health-api",
+    "authors": [
+        {
+            "name": "Saizul Amin",
+            "homepage": "https://saizul.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/saizul/wp-health-api/issues",
+        "source": "https://github.com/saizul/wp-health-api"
+    },
+    "require": {
+        "php": ">=7.4"
+    },
+    "require-dev": {
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpcompatibility/phpcompatibility-wp": "^2.1",
+        "phpunit/phpunit": "^9.6",
+        "squizlabs/php_codesniffer": "^3.9",
+        "wp-coding-standards/wpcs": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Saizul\\HealthApi\\WP\\": "includes/",
+            "Saizul\\HealthApi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Saizul\\HealthApi\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "lint": "find . -name '*.php' -not -path './vendor/*' -print0 | xargs -0 -n1 php -l",
+        "phpcs": "phpcs",
+        "phpcbf": "phpcbf",
+        "make-pot": "php bin/make-pot.php"
+    },
+    "config": {
+        "sort-packages": true,
+        "platform": {
+            "php": "7.4.33"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
+    }
+}

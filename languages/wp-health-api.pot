@@ -1,0 +1,485 @@
+# Copyright (C) 2026 Saizul Amin
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Health API 0.1.0\n"
+"Report-Msgid-Bugs-To: https://github.com/saizul/wp-health-api/issues\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Domain: wp-health-api\n"
+
+#. Plugin Name of the plugin
+#: wp-health-api.php includes/Admin/SettingsPage.php:68 includes/Admin/SettingsPage.php:69 includes/Admin/SettingsPage.php:185 includes/SiteHealth.php:155
+msgid "Health API"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: wp-health-api.php
+msgid "https://github.com/saizul/wp-health-api"
+msgstr ""
+
+#. Description of the plugin
+#: wp-health-api.php
+msgid "Health check and Prometheus metrics endpoints for uptime monitors: database, object cache, WP-Cron, Action Scheduler, disk space, PHP, pending updates, TLS expiry, maintenance mode and WooCommerce orders."
+msgstr ""
+
+#. Author of the plugin
+#: wp-health-api.php
+msgid "Saizul Amin"
+msgstr ""
+
+#. Author URI of the plugin
+#: wp-health-api.php
+msgid "https://saizul.com"
+msgstr ""
+
+#. translators: %s: technical description of the rejected value.
+#: includes/Admin/SettingsPage.php:105
+#, php-format
+msgid "Not saved: %s"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:129
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:140 includes/Admin/SettingsPage.php:154
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:196
+msgid "Checks and thresholds"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:197
+msgid "Leave a limit empty to disable that level. \"Above\" limits fire when the value is at or above the limit, \"below\" limits when it is at or below."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:199 includes/Admin/SettingsPage.php:437
+msgid "Check"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:199
+msgid "Measure"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:199 includes/Labels.php:87
+msgid "Warning"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:199 includes/Labels.php:89
+msgid "Critical"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:224
+msgid "No thresholds; see the options below."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:231
+msgid "above"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:231
+msgid "below"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:249
+msgid "Responses"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:250
+msgid "HTTP status per result"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:260
+msgid "Used by /status (in \"overall\" mode) and /details. Simple uptime monitors only look at the status code. /metrics always answers 200."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:262
+msgid "Public /status endpoint"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:264
+msgid "Alive: \"ok\" whenever WordPress and its database answer"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:265
+msgid "Overall: the overall result of all checks, without details"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:277
+msgid "Maintenance mode result"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:284
+msgid "Caching and rate limits"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:286
+msgid "Cache reports for (seconds, 0 = off)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:287
+msgid "Public requests per window and IP (0 = unlimited)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:288
+msgid "Authenticated requests per window and IP (0 = unlimited)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:289
+msgid "Rate limit window (seconds)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:290
+msgid "Failed tokens per IP before a 15 minute lock-out (0 = never)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:295
+msgid "Client IP header"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:297
+msgid "REMOTE_ADDR (no proxy)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:299
+msgid "Only choose a proxy header when your proxy or CDN always sets it; otherwise clients can forge it."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:302
+msgid "Check options"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:303
+msgid "Seconds a cron event or action may be late before it is overdue"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:304
+msgid "Cache the certificate for (hours)"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:306
+msgid "Warn below PHP version"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:307
+msgid "Critical below PHP version"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:318
+msgid "Warn when OPcache is off"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:319
+msgid "Warn when no persistent object cache is installed"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:327
+msgid "Enabled"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:360
+msgid "Endpoints"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:362
+msgid "Public, no details. For simple uptime monitors."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:363
+msgid "JSON report with every check. Needs the token."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:364
+msgid "Prometheus text format. Needs the token."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:371
+msgid "Send the token in the Authorization header (or X-Health-Token if your server strips Authorization):"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:381 includes/SiteHealth.php:170
+msgid "Access token"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:387
+msgid "Copy the new token now. It is shown only once; only its hash is stored."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:390
+msgid "The stored token was deleted."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:396
+msgid "The WP_HEALTH_API_TOKEN constant is set but shorter than 16 characters, so it is not accepted."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:397
+msgid "The token is defined by the WP_HEALTH_API_TOKEN constant in wp-config.php. A generated token is ignored while the constant exists."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:400
+msgid "A generated token is active. Generating a new one invalidates it immediately."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:403
+msgid "No token is configured: /details and /metrics answer 401. Generate a token or define WP_HEALTH_API_TOKEN in wp-config.php."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:409
+msgid "Generate new token"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:415
+msgid "Delete token"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:424
+msgid "Current results"
+msgstr ""
+
+#. translators: 1: overall status, 2: time the report was generated.
+#: includes/Admin/SettingsPage.php:433
+#, php-format
+msgid "Overall: %1$s (generated %2$s UTC)."
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:437
+msgid "Result"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:437
+msgid "Message"
+msgstr ""
+
+#: includes/Admin/SettingsPage.php:442
+msgid "Skipped"
+msgstr ""
+
+#: includes/CronRecorder.php:43
+msgid "Every five minutes (Health API heartbeat)"
+msgstr ""
+
+#: includes/Labels.php:26
+msgid "Database"
+msgstr ""
+
+#: includes/Labels.php:27
+msgid "Object cache"
+msgstr ""
+
+#: includes/Labels.php:28
+msgid "WP-Cron"
+msgstr ""
+
+#: includes/Labels.php:29
+msgid "Action Scheduler"
+msgstr ""
+
+#: includes/Labels.php:30
+msgid "Disk space"
+msgstr ""
+
+#: includes/Labels.php:31
+msgid "PHP runtime"
+msgstr ""
+
+#: includes/Labels.php:32
+msgid "Pending updates"
+msgstr ""
+
+#: includes/Labels.php:33
+msgid "TLS certificate"
+msgstr ""
+
+#: includes/Labels.php:34
+msgid "Maintenance mode"
+msgstr ""
+
+#: includes/Labels.php:35
+msgid "WooCommerce orders"
+msgstr ""
+
+#: includes/Labels.php:57
+msgid "Query latency"
+msgstr ""
+
+#: includes/Labels.php:58
+msgid "Round trip latency"
+msgstr ""
+
+#: includes/Labels.php:59
+msgid "Overdue events"
+msgstr ""
+
+#: includes/Labels.php:60
+msgid "Time since last run"
+msgstr ""
+
+#: includes/Labels.php:61
+msgid "Past-due actions"
+msgstr ""
+
+#: includes/Labels.php:62
+msgid "Failed actions (24 hours)"
+msgstr ""
+
+#: includes/Labels.php:63
+msgid "Free space (percent)"
+msgstr ""
+
+#: includes/Labels.php:64
+msgid "Free space (MiB)"
+msgstr ""
+
+#: includes/Labels.php:65
+msgid "Memory limit"
+msgstr ""
+
+#: includes/Labels.php:66
+msgid "OPcache hit rate"
+msgstr ""
+
+#: includes/Labels.php:67
+msgid "OPcache free memory"
+msgstr ""
+
+#: includes/Labels.php:68
+msgid "Core update available"
+msgstr ""
+
+#: includes/Labels.php:69
+msgid "Plugin updates"
+msgstr ""
+
+#: includes/Labels.php:70
+msgid "Theme updates"
+msgstr ""
+
+#: includes/Labels.php:71
+msgid "Days until expiry"
+msgstr ""
+
+#: includes/Labels.php:72
+msgid "Orders in the last hour"
+msgstr ""
+
+#: includes/Labels.php:73
+msgid "Failed orders in the last hour"
+msgstr ""
+
+#: includes/Labels.php:85
+msgid "OK"
+msgstr ""
+
+#: includes/Rest/Controller.php:109
+msgid "Comma-separated check ids to run (default: all enabled checks)."
+msgstr ""
+
+#: includes/Rest/Controller.php:115
+msgid "Run the checks now instead of using the short cache."
+msgstr ""
+
+#: includes/Rest/Controller.php:198
+msgid "Too many failed attempts. Try again later."
+msgstr ""
+
+#: includes/Rest/Controller.php:203 includes/Rest/Controller.php:240
+msgid "Too many requests."
+msgstr ""
+
+#: includes/Rest/Controller.php:212
+msgid "No access token is configured. Generate one under Settings > Health API or with \"wp health token rotate\"."
+msgstr ""
+
+#: includes/Rest/Controller.php:220
+msgid "A valid access token is required."
+msgstr ""
+
+#. translators: %s: check name, e.g. "Database".
+#: includes/SiteHealth.php:60
+#, php-format
+msgid "Health API: %s"
+msgstr ""
+
+#. translators: %s: check name.
+#: includes/SiteHealth.php:98
+#, php-format
+msgid "%s: not applicable on this site"
+msgstr ""
+
+#. translators: %s: check name.
+#: includes/SiteHealth.php:102
+#, php-format
+msgid "%s needs attention"
+msgstr ""
+
+#. translators: %s: check name.
+#: includes/SiteHealth.php:106
+#, php-format
+msgid "%s is close to its limits"
+msgstr ""
+
+#. translators: %s: check name.
+#: includes/SiteHealth.php:110
+#, php-format
+msgid "%s is healthy"
+msgstr ""
+
+#. translators: %s: result message in English, as reported by the API.
+#: includes/SiteHealth.php:116
+#, php-format
+msgid "Health API reports: %s"
+msgstr ""
+
+#: includes/SiteHealth.php:117
+msgid "no result"
+msgstr ""
+
+#: includes/SiteHealth.php:125
+msgid "Monitoring"
+msgstr ""
+
+#: includes/SiteHealth.php:132
+msgid "Adjust thresholds"
+msgstr ""
+
+#: includes/SiteHealth.php:149
+msgid "WP_HEALTH_API_TOKEN constant"
+msgstr ""
+
+#: includes/SiteHealth.php:150
+msgid "Generated token (hash stored)"
+msgstr ""
+
+#: includes/SiteHealth.php:151
+msgid "Not configured"
+msgstr ""
+
+#: includes/SiteHealth.php:158
+msgid "Version"
+msgstr ""
+
+#: includes/SiteHealth.php:162
+msgid "Public status URL"
+msgstr ""
+
+#: includes/SiteHealth.php:166
+msgid "Metrics URL"
+msgstr ""
+
+#: includes/SiteHealth.php:175
+msgid "Enabled checks"
+msgstr ""
+
+#: includes/SiteHealth.php:179
+msgid "Report cache (seconds)"
+msgstr ""
+
+#: wp-health-api.php:26
+msgid "Health API requires PHP 7.4 or newer."
+msgstr ""

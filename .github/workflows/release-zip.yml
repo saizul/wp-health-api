@@ -1,0 +1,97 @@
+name: Release zip
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+env:
+  SLUG: wp-health-api
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          coverage: none
+
+      - name: Check the version matches the tag
+        if: github.event_name == 'release'
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          header=$(sed -n 's/^ \* Version: *//p' "$SLUG.php" | tr -d '[:space:]')
+          define=$(sed -n "s/^define( 'WP_HEALTH_API_VERSION', '\(.*\)' );/\1/p" "$SLUG.php" | tr -d '[:space:]')
+          constant=$(sed -n "s/^.*const VERSION = '\(.*\)';/\1/p" includes/Plugin.php | tr -d '[:space:]')
+          stable=$(sed -n 's/^Stable tag: *//p' readme.txt | tr -d '[:space:]')
+          echo "tag=$tag header=$header define=$define constant=$constant stable=$stable"
+          test "$tag" = "$header"
+          test "$tag" = "$define"
+          test "$tag" = "$constant"
+          test "$tag" = "$stable"
+
+      - name: Build the plugin folder
+        run: |
+          mkdir -p "build/$SLUG"
+          rsync -a --exclude-from=.distignore ./ "build/$SLUG/"
+          # The plugin has no runtime Composer dependencies; its own autoloader is used.
+          test ! -e "build/$SLUG/vendor"
+          test ! -e "build/$SLUG/tests"
+          test -e "build/$SLUG/$SLUG.php"
+          test -e "build/$SLUG/includes/Rest/Controller.php"
+          test -e "build/$SLUG/src/Prometheus/Formatter.php"
+          test -e "build/$SLUG/languages/$SLUG.pot"
+          test -e "build/$SLUG/uninstall.php"
+          test -e "build/$SLUG/readme.txt"
+          find "build/$SLUG" -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+          find "build/$SLUG" -type f | sort
+
+      - name: Smoke test the autoloader
+        run: |
+          php -r '
+            define("ABSPATH", __DIR__);
+            spl_autoload_register(function ($c) {
+              $p = ["Saizul\\HealthApi\\WP\\" => "build/wp-health-api/includes/", "Saizul\\HealthApi\\" => "build/wp-health-api/src/"];
+              foreach ($p as $prefix => $dir) {
+                if (strpos($c, $prefix) === 0) { require $dir . str_replace("\\", "/", substr($c, strlen($prefix))) . ".php"; return; }
+              }
+            });
+            $threshold = new Saizul\HealthApi\Threshold(10.0, 5.0, Saizul\HealthApi\Threshold::BELOW);
+            $family = new Saizul\HealthApi\Prometheus\MetricFamily("wp_health_up", "gauge", "Up.");
+            $family->add(1.0, ["site" => "a\"b"]);
+            $text = Saizul\HealthApi\Prometheus\Formatter::render([$family]);
+            $hash = Saizul\HealthApi\Auth\TokenHasher::hash("YOUR_TOKEN");
+            $verifier = new Saizul\HealthApi\Auth\TokenVerifier(null, $hash);
+            $ok = $threshold->evaluate(7.0) === "warn"
+              && $text === "# HELP wp_health_up Up.\n# TYPE wp_health_up gauge\nwp_health_up{site=\"a\\\"b\"} 1\n"
+              && $verifier->verify("YOUR_TOKEN")
+              && ! $verifier->verify("YOUR_TOKEN_");
+            exit($ok ? 0 : 1);
+          '
+
+      - name: Create the zip
+        run: |
+          cd build
+          zip -r -q "../$SLUG.zip" "$SLUG"
+          cd ..
+          unzip -l "$SLUG.zip" | tail -n 1
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.SLUG }}
+          path: ${{ env.SLUG }}.zip
+
+      - name: Attach to the release
+        if: github.event_name == 'release'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "$GITHUB_REF_NAME" "$SLUG.zip" --clobber
